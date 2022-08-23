@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
+       
     }
 
     private void FixedUpdate()
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
         {
             ApplyAirLinearDrag();
             FallMultiplier();
+          
         }
 
         if (isFacingRight && horizontalDirection < 0f)
@@ -117,8 +118,8 @@ public class PlayerController : MonoBehaviour
 
         if (context.canceled && rb.velocity.y > 0f)
         {
-            rb.velocity +=  Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier-1)*Time.deltaTime;
-           // rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            //rb.velocity +=  Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier-1)*Time.deltaTime;
+           rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
 
 
             coyoteCounter = 0f;
@@ -162,14 +163,20 @@ public class PlayerController : MonoBehaviour
             raycastCenter.transform.position + Vector3.down * groundRaycastLength);
     }
 
-    private void FallMultiplier()
+    public void FallMultiplier()
     {
-
+       
         if (rb.velocity.y < 0)
+        {
+            Debug.Log("Se cambio la gravedad1");
             rb.gravityScale = fallMultiplier;
+        }
         else if (rb.velocity.y > 0 && !jump)
+        {
+            Debug.Log("Se cambio la gravedad2");
             rb.gravityScale = lowJumpMultiplier;
+        }
         else
-            rb.gravityScale = 1f;
+           rb.gravityScale = 1f;
     }
 }
