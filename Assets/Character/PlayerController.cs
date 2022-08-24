@@ -11,16 +11,15 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerController : MonoBehaviour
 {
 
-   
+
 
     [Header("Components")]
-    [SerializeField]
-    private Rigidbody2D rb;
 
-    private BoxCollider2D cl;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform raycastCenter;
-
     [SerializeField] private LayerMask groundLayer;
+   // [SerializeField] private Animator animator;
+    private BoxCollider2D cl;
 
     [Header("Movement")]
 
@@ -44,14 +43,14 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;
     private bool jump = false;
 
-    [Header("Collision")] 
+    [Header("Collision")]
 
     [SerializeField] private float groundRaycastLength = 0.3f;
     [SerializeField] private bool onGround;
     [SerializeField] private bool isFacingRight = true;
-    private Vector2 defaultColliderOffset = new Vector2(0.1874783f, -0.1707393f);
-    private Vector2 defaultColliderSize = new Vector2(0.7054553f, 1.658521f);
-    private Vector2 crouchColliderSize = new Vector2(0.7054553f, 1.658521f / 2);
+    private Vector2 defaultColliderOffset = new Vector2(0.09457415f, -02695893f);
+    private Vector2 defaultColliderSize = new Vector2(0.3603824f, 0.9374076f);
+    private Vector2 crouchColliderSize = new Vector2(0.3603824f, 0.9374076f / 2);
 
 
     // Start is called before the first frame update
@@ -62,7 +61,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-       
+
     }
     private void FixedUpdate()
     {
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour
         {
             ApplyAirLinearDrag();
             FallMultiplier();
-          
+
         }
 
         if (isFacingRight && horizontalDirection < 0f)
@@ -94,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     #region INPUTS
 
-    
+
     public void GetJumpInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if (context.canceled && rb.velocity.y > 0f)
         {
             //rb.velocity +=  Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier-1)*Time.deltaTime;
-           rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
 
 
             coyoteCounter = 0f;
@@ -129,7 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             Crouch();
         }
-     
+
     }
     #endregion
 
@@ -144,23 +143,23 @@ public class PlayerController : MonoBehaviour
 
     #region MOVE
 
-    
+
     private void MoveCharacter()
     {
         if (!crouch)
         {
-            
-        rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration);
 
-        if (MathF.Abs(rb.velocity.x) > maxMoveSpeed)
-            rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y);
+            rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration);
+
+            if (MathF.Abs(rb.velocity.x) > maxMoveSpeed)
+                rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y);
 
         }
         else
         {
-            rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration/2);
-            if (MathF.Abs(rb.velocity.x) > maxMoveSpeed/2)
-                rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * (maxMoveSpeed/2), rb.velocity.y);
+            rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration / 2);
+            if (MathF.Abs(rb.velocity.x) > maxMoveSpeed / 2)
+                rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * (maxMoveSpeed / 2), rb.velocity.y);
         }
     }
 
@@ -184,15 +183,16 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-    
-        rb.velocity = new Vector2(rb.velocity.x, 0);
-        
-       
-      rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if (!crouch)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
     }
     public void FallMultiplier()
     {
-       
+
         if (rb.velocity.y < 0)
         {
             Debug.Log("Se cambio la gravedad1");
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = lowJumpMultiplier;
         }
         else
-           rb.gravityScale = 1f;
+            rb.gravityScale = 1f;
     }
 
     #endregion
@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour
 
     #region COLLISIONS
 
-      public void CheckCollision()
+    public void CheckCollision()
     {
         onGround = Physics2D.Raycast(raycastCenter.transform.position * groundRaycastLength, Vector2.down,
             groundRaycastLength, groundLayer);
@@ -242,6 +242,6 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-  
+
 
 }

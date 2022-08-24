@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc345ed3d7fe3484c85f044472bfb252
+guid: 9742e0d2e1907684d8626b732ce45622
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,11 +116,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character Idle_0
+      name: PJ_Crouched-Sheet_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 11
+        x: 1
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -130,18 +130,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfdfbf624541bb54fba8133dc188b50e
-      internalID: 1628245260
+      spriteID: fc8a915bb82192547af0804498e8fb31
+      internalID: -1799000566
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_1
+      name: PJ_Crouched-Sheet_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 11
+        x: 33
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -151,18 +151,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70063212fbc7adf43a022eea1b6aaeb8
-      internalID: -1103018374
+      spriteID: e850a3fc80a06f74690c8c0c2b14a778
+      internalID: -2079252926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_2
+      name: PJ_Crouched-Sheet_2
       rect:
         serializedVersion: 2
-        x: 68
-        y: 11
+        x: 65
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -172,18 +172,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1fadceb40386c44b81ddde928c382cf
-      internalID: 294652456
+      spriteID: 33cb3272f2de1244f9ad8d4082f4e8c3
+      internalID: 24161075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_3
+      name: PJ_Crouched-Sheet_3
       rect:
         serializedVersion: 2
-        x: 100
-        y: 11
+        x: 97
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -193,18 +193,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59e91b28e12521247a6399ba23bae3d4
-      internalID: 111150758
+      spriteID: 1194fd32c886a1540b1e941236011f01
+      internalID: 1587921450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_4
+      name: PJ_Crouched-Sheet_4
       rect:
         serializedVersion: 2
-        x: 132
-        y: 11
+        x: 129
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -214,18 +214,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b3c5043458081047a46d97f704da9c8
-      internalID: -762419606
+      spriteID: d06d19eeb73b8cf48b677806293c15ba
+      internalID: 1608849400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_5
+      name: PJ_Crouched-Sheet_5
       rect:
         serializedVersion: 2
-        x: 162
-        y: 11
+        x: 161
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -235,18 +235,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a719f79ea5bbf4c4f858734ac4f463c8
-      internalID: 1851837655
+      spriteID: d636528dcad19ff4899fe6465c208fe9
+      internalID: -1577403808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_6
+      name: PJ_Crouched-Sheet_6
       rect:
         serializedVersion: 2
         x: 193
-        y: 11
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -256,18 +256,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 731a3b20eb6961c44a99ad507ebffcdd
-      internalID: 305285686
+      spriteID: 195ef5f64ef0111499529119daeb9db1
+      internalID: 308579169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Character Idle_7
+      name: PJ_Crouched-Sheet_7
       rect:
         serializedVersion: 2
-        x: 222
-        y: 11
+        x: 225
+        y: 0
         width: 25
         height: 32
       alignment: 0
@@ -277,8 +277,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 871d59aef3d9dc3439a55a5232f69a16
-      internalID: 862704875
+      spriteID: cdc16d214f425de4ebf4aaba65adbe4b
+      internalID: 1598084824
       vertices: []
       indices: 
       edges: []
@@ -286,7 +286,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 601eeeace19f9b64bae68fa44eb6b62e
     internalID: 0
     vertices: []
     indices: 
@@ -294,14 +294,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Character Idle_1: -1103018374
-      Character Idle_5: 1851837655
-      Character Idle_2: 294652456
-      Character Idle_4: -762419606
-      Character Idle_6: 305285686
-      Character Idle_7: 862704875
-      Character Idle_0: 1628245260
-      Character Idle_3: 111150758
+      PJ_Crouched-Sheet_6: 308579169
+      PJ_Crouched-Sheet_0: -1799000566
+      PJ_Crouched-Sheet_5: -1577403808
+      PJ_Crouched-Sheet_3: 1587921450
+      PJ_Crouched-Sheet_7: 1598084824
+      PJ_Crouched-Sheet_1: -2079252926
+      PJ_Crouched-Sheet_4: 1608849400
+      PJ_Crouched-Sheet_2: 24161075
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
