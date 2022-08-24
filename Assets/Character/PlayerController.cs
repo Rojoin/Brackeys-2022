@@ -48,9 +48,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundRaycastLength = 0.3f;
     [SerializeField] private bool onGround;
     [SerializeField] private bool isFacingRight = true;
-    private Vector2 defaultColliderOffset = new Vector2(0.09457415f, -02695893f);
-    private Vector2 defaultColliderSize = new Vector2(0.3603824f, 0.9374076f);
-    private Vector2 crouchColliderSize = new Vector2(0.3603824f, 0.9374076f / 2);
+    private readonly Vector2 defaultColliderOffset = new Vector2(0.09457415f, -02695893f);
+    private readonly Vector2 defaultColliderSize = new Vector2(0.3603824f, 0.9374076f);
+    private readonly Vector2 crouchColliderSize = new Vector2(0.3603824f, 0.9374076f / 2);
 
 
     // Start is called before the first frame update
@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region CROUCH
     private void Crouch()
     {
         if (!crouch)
@@ -178,6 +179,7 @@ public class PlayerController : MonoBehaviour
             cl.size = defaultColliderSize;
         }
     }
+    #endregion
 
     #region JUMP
 
