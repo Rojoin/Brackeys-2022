@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c35caae621a1eba41bf25d251f4e6460
+guid: 412dae66788d1694e829e28441599a68
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,12 +116,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PJ_grabbing-Sheet_0
+      name: Character Jump_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 25
+        width: 26
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -130,124 +130,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4b7afd9d706faf4baf479308da25aaf
-      internalID: 320973045
+      spriteID: a7b2beb925404d3468dbf5bf9393cfa9
+      internalID: 572207639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PJ_grabbing-Sheet_1
+      name: Character Jump_1
       rect:
         serializedVersion: 2
-        x: 25
+        x: 29
         y: 0
-        width: 25
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d763fa90b4e84a40aab678ed4168a00
-      internalID: 1834116978
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 0
-        width: 25
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 98a51e4dda19ee442b065b47f4391a6f
-      internalID: 813646989
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 0
-        width: 25
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5315ffbc0182d954096f5a4287178786
-      internalID: 1501006945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 0
-        width: 25
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b8ad7be18dcef44db4b5d95058b1af7
-      internalID: -473027960
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 0
-        width: 25
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a07c0f81f88b91b40b1819b2716b97f9
-      internalID: -1910548910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 25
+        width: 28
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -256,29 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22e202715227a5043b867e34664632a8
-      internalID: -367084602
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PJ_grabbing-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 0
-        width: 25
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9739142bb50c51b42b02e5bed27e54ea
-      internalID: -814793111
+      spriteID: 02bdc37e5ce49654ca5298453159344c
+      internalID: -629081542
       vertices: []
       indices: 
       edges: []
@@ -286,7 +160,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: c2f5207e8fd3f5b46a3b9ad1a8ec84b0
     internalID: 0
     vertices: []
     indices: 
@@ -294,14 +168,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PJ_grabbing-Sheet_4: -473027960
-      PJ_grabbing-Sheet_1: 1834116978
-      PJ_grabbing-Sheet_7: -814793111
-      PJ_grabbing-Sheet_6: -367084602
-      PJ_grabbing-Sheet_0: 320973045
-      PJ_grabbing-Sheet_2: 813646989
-      PJ_grabbing-Sheet_5: -1910548910
-      PJ_grabbing-Sheet_3: 1501006945
+      Character Jump_1: -629081542
+      Character Jump_0: 572207639
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

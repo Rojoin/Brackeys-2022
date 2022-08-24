@@ -10,10 +10,14 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerController : MonoBehaviour
 {
+
+   
+
     [Header("Components")]
     [SerializeField]
     private Rigidbody2D rb;
 
+    private BoxCollider2D cl;
     [SerializeField] private Transform raycastCenter;
 
     [SerializeField] private LayerMask groundLayer;
@@ -24,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float groundLinearDrag;
     private float horizontalDirection;
-
+    private bool crouch = false;
     private bool flipCharacter => (rb.velocity.x > 0f && horizontalDirection < 0f) ||
                                   (rb.velocity.x < 0f && horizontalDirection > 0f);
 
@@ -39,19 +43,27 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime = 0.2f;
     private float coyoteCounter;
     private bool jump = false;
-    [Header("Collision")] [SerializeField] private float groundRaycastLength = 0.3f;
 
+    [Header("Collision")] 
+
+    [SerializeField] private float groundRaycastLength = 0.3f;
     [SerializeField] private bool onGround;
     [SerializeField] private bool isFacingRight = true;
+    private Vector2 defaultColliderOffset = new Vector2(0.1874783f, -0.1707393f);
+    private Vector2 defaultColliderSize = new Vector2(0.7054553f, 1.658521f);
+    private Vector2 crouchColliderSize = new Vector2(0.7054553f, 1.658521f / 2);
+
 
     // Start is called before the first frame update
-
+    private void Awake()
+    {
+        cl = GetComponent<BoxCollider2D>();
+    }
     // Update is called once per frame
     private void Update()
     {
        
     }
-
     private void FixedUpdate()
     {
         if (!jump) jumpBufferCounter -= Time.deltaTime;
@@ -80,29 +92,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #region INPUTS
 
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        var localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }
-
-    public void GetHorizontalInput(InputAction.CallbackContext context)
-    {
-        horizontalDirection = context.ReadValue<Vector2>().x;
-    }
-
-    private void MoveCharacter()
-    {
-        rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration);
-
-        if (MathF.Abs(rb.velocity.x) > maxMoveSpeed)
-            rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y);
-
-    }
-
+    
     public void GetJumpInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -126,6 +118,69 @@ public class PlayerController : MonoBehaviour
             jump = false;
         }
     }
+    public void GetHorizontalInput(InputAction.CallbackContext context)
+    {
+        horizontalDirection = context.ReadValue<Vector2>().x;
+    }
+
+    public void GetCrouchInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Crouch();
+        }
+     
+    }
+    #endregion
+
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        var localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
+
+    #region MOVE
+
+    
+    private void MoveCharacter()
+    {
+        if (!crouch)
+        {
+            
+        rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration);
+
+        if (MathF.Abs(rb.velocity.x) > maxMoveSpeed)
+            rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y);
+
+        }
+        else
+        {
+            rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration/2);
+            if (MathF.Abs(rb.velocity.x) > maxMoveSpeed/2)
+                rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * (maxMoveSpeed/2), rb.velocity.y);
+        }
+    }
+
+    #endregion
+
+    private void Crouch()
+    {
+        if (!crouch)
+        {
+            crouch = true;
+            cl.size = crouchColliderSize;
+        }
+        else
+        {
+            crouch = false;
+            cl.size = defaultColliderSize;
+        }
+    }
+
+    #region JUMP
 
     public void Jump()
     {
@@ -135,34 +190,6 @@ public class PlayerController : MonoBehaviour
        
       rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
-
-    public void ApplyGroundLinearDrag()
-    {
-        rb.drag = MathF.Abs(horizontalDirection) < 0.4f || flipCharacter ? groundLinearDrag : 0f;
-    }
-
-    public void ApplyAirLinearDrag()
-    {
-        rb.drag = airLinearDrag;
-    }
-
-    public void CheckCollision()
-    {
-        onGround = Physics2D.Raycast(raycastCenter.transform.position * groundRaycastLength, Vector2.down,
-            groundRaycastLength, groundLayer);
-        if (onGround)
-            coyoteCounter = coyoteTime;
-        else
-            coyoteCounter -= Time.deltaTime;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(raycastCenter.transform.position,
-            raycastCenter.transform.position + Vector3.down * groundRaycastLength);
-    }
-
     public void FallMultiplier()
     {
        
@@ -179,4 +206,42 @@ public class PlayerController : MonoBehaviour
         else
            rb.gravityScale = 1f;
     }
+
+    #endregion
+
+    #region DRAG
+
+    public void ApplyGroundLinearDrag()
+    {
+        rb.drag = MathF.Abs(horizontalDirection) < 0.4f || flipCharacter ? groundLinearDrag : 0f;
+    }
+
+    public void ApplyAirLinearDrag()
+    {
+        rb.drag = airLinearDrag;
+    }
+    #endregion
+
+    #region COLLISIONS
+
+      public void CheckCollision()
+    {
+        onGround = Physics2D.Raycast(raycastCenter.transform.position * groundRaycastLength, Vector2.down,
+            groundRaycastLength, groundLayer);
+        if (onGround)
+            coyoteCounter = coyoteTime;
+        else
+            coyoteCounter -= Time.deltaTime;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(raycastCenter.transform.position,
+            raycastCenter.transform.position + Vector3.down * groundRaycastLength);
+    }
+
+    #endregion
+  
+
 }
