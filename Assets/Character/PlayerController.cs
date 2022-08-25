@@ -18,8 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform raycastCenter;
     [SerializeField] private LayerMask groundLayer;
-   // [SerializeField] private Animator animator;
+    // [SerializeField] private Animator animator;
     private BoxCollider2D cl;
+    private HingeJoint2D hj;
+
 
     [Header("Movement")]
 
@@ -27,7 +29,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float groundLinearDrag;
     private float horizontalDirection;
+    private float verticalDirection;
     private bool crouch = false;
+    private float horizontalPrev;
+    private float verticalPrev;
     private bool flipCharacter => (rb.velocity.x > 0f && horizontalDirection < 0f) ||
                                   (rb.velocity.x < 0f && horizontalDirection > 0f);
 
@@ -43,6 +48,14 @@ public class PlayerController : MonoBehaviour
     private float coyoteCounter;
     private bool jump = false;
 
+    [Header("Swing")]
+
+    public bool attached = false;
+    [SerializeField] private float pushForse = 10f;
+    public Transform attachedTo;
+    [SerializeField] private GameObject disregard;
+
+
     [Header("Collision")]
 
     [SerializeField] private float groundRaycastLength = 0.3f;
@@ -52,11 +65,12 @@ public class PlayerController : MonoBehaviour
     private readonly Vector2 defaultColliderSize = new Vector2(0.3603824f, 0.9374076f);
     private readonly Vector2 crouchColliderSize = new Vector2(0.3603824f, 0.9374076f / 2);
 
-
+    private bool corroutineStart = false;
     // Start is called before the first frame update
     private void Awake()
     {
         cl = GetComponent<BoxCollider2D>();
+        hj = gameObject.GetComponent<HingeJoint2D>();
     }
     // Update is called once per frame
     private void Update()
@@ -67,14 +81,20 @@ public class PlayerController : MonoBehaviour
     {
         if (!jump) jumpBufferCounter -= Time.deltaTime;
 
+        if (attached)
+        {
+            disregard = attachedTo.gameObject;
+        }
 
         CheckCollision();
         MoveCharacter();
         if (onGround)
         {
+
             ApplyGroundLinearDrag();
+
         }
-        else
+        else if (!onGround && !attached)
         {
             ApplyAirLinearDrag();
             FallMultiplier();
@@ -93,33 +113,68 @@ public class PlayerController : MonoBehaviour
 
     #region INPUTS
 
-
+    IEnumerator airDragEnumerator()
+    {
+        corroutineStart = true;
+        yield return new WaitForSeconds(1);
+        ApplyAirLinearDrag();
+        FallMultiplier();
+        corroutineStart = false;
+    }
     public void GetJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!attached)
         {
-            jumpBufferCounter = jumpBufferTime;
+            if (context.performed)
+            {
+                jumpBufferCounter = jumpBufferTime;
+            }
+            if (jumpBufferCounter > 0f && coyoteCounter > 0f)
+            {
+                Jump();
+                onGround = false;
+                jumpBufferCounter = 0f;
+                jump = true;
+            }
+
+            if (context.canceled && rb.velocity.y > 0f)
+            {
+                //rb.velocity +=  Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier-1)*Time.deltaTime;
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+
+
+                coyoteCounter = 0f;
+                jump = false;
+            }
         }
-        if (jumpBufferCounter > 0f && coyoteCounter > 0f)
+        else
         {
-            Jump();
-            jumpBufferCounter = 0f;
-            jump = true;
+            if (context.performed)
+            {
+                VineDetach();
+            }
         }
 
-        if (context.canceled && rb.velocity.y > 0f)
-        {
-            //rb.velocity +=  Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier-1)*Time.deltaTime;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-
-
-            coyoteCounter = 0f;
-            jump = false;
-        }
     }
     public void GetHorizontalInput(InputAction.CallbackContext context)
     {
+
+
         horizontalDirection = context.ReadValue<Vector2>().x;
+       // verticalDirection = context.ReadValue<Vector2>().y;
+
+        // if (context.performed)
+        // {
+        //     StopCoroutine(airDragEnumerator());
+        // }
+        // if (context.canceled)
+        // {
+        //     StartCoroutine(airDragEnumerator());
+        //
+        // }
+
+
+
     }
 
     public void GetCrouchInput(InputAction.CallbackContext context)
@@ -141,12 +196,107 @@ public class PlayerController : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    #region VINE
+
+    private void VineSwing(bool right)
+    {
+        if (right)
+        {
+            Debug.Log(("Derecha"));
+            rb.AddRelativeForce(new Vector3(4, 0, 0) * pushForse);
+        }
+        else
+        {
+            Debug.Log(("Izquierda"));
+            rb.AddRelativeForce(new Vector3(-4, 0, 0) * pushForse);
+        }
+
+    }
+
+    private void VineSlide(bool up)
+    {
+        RopeSegment myConnection = hj.connectedBody.gameObject.GetComponent<RopeSegment>();
+        GameObject newSeg = null;
+        if (up)
+        {
+            Debug.Log("Arriba");
+            if (myConnection.connectedAbove != null)
+            {
+                if (myConnection.connectedAbove.gameObject.GetComponent<RopeSegment>() != null)
+                {
+                    newSeg = myConnection.connectedAbove;
+
+                }
+            }
+        }
+        else
+        {
+            if (myConnection.connectedBelow != null)
+            {
+                newSeg = myConnection.connectedBelow;
+            }
+        }
+
+        if (newSeg != null)
+        {
+            transform.position = newSeg.transform.position;
+            myConnection.isPlayerAttached = false;
+            newSeg.GetComponent<RopeSegment>().isPlayerAttached = true;
+            hj.connectedBody = newSeg.GetComponent<Rigidbody2D>();
+        }
+        verticalDirection = 0;
+    }
+
+
+    private void VineAttach(Rigidbody2D ropeBone)
+    {
+
+        //cl.enabled = false;
+        ropeBone.gameObject.GetComponent<RopeSegment>().isPlayerAttached = true;
+        hj.connectedBody = ropeBone;
+        hj.enabled = true;
+        attached = true;
+        attachedTo = ropeBone.gameObject.transform.parent;
+        disregard = attachedTo.gameObject;
+        Debug.Log("Volvi");
+    }
+    private void VineDetach()
+    {
+        cl.enabled = true;
+        hj.connectedBody.gameObject.GetComponent<RopeSegment>().isPlayerAttached = false;
+        attached = false;
+        attachedTo = null;
+        hj.enabled = false;
+        hj.connectedBody = null;
+        Debug.Log("Me fui");
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!attached)
+        {
+            if (other.gameObject.tag == "Rope")
+            {
+                if (attachedTo != other.gameObject.transform.parent)
+                {
+                    if (disregard == null || other.gameObject.transform.parent.gameObject != disregard)
+                    {
+                        VineAttach(other.gameObject.GetComponent<Rigidbody2D>());
+                    }
+                }
+            }
+        }
+    }
+
+
+    #endregion
+
     #region MOVE
 
 
     private void MoveCharacter()
     {
-        if (!crouch)
+        if (!crouch && !attached)
         {
 
             rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration);
@@ -155,11 +305,32 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * maxMoveSpeed, rb.velocity.y);
 
         }
-        else
+        else if (crouch)
         {
             rb.AddForce(new Vector2(horizontalDirection, 0) * movementAcceleration / 2);
             if (MathF.Abs(rb.velocity.x) > maxMoveSpeed / 2)
                 rb.velocity = new Vector2(MathF.Sign(rb.velocity.x) * (maxMoveSpeed / 2), rb.velocity.y);
+        }
+        else if (attached)
+        {
+            Debug.Log("Agarrado");
+            if (horizontalDirection > 0)
+            {
+                VineSwing(true);
+            }
+            else if (horizontalDirection < 0)
+            {
+                VineSwing(false);
+            }
+            else if (verticalDirection > 0)
+            {
+                VineSlide(true);
+            }
+            else if (verticalDirection < 0)
+            {
+
+                VineSlide(false);
+            }
         }
     }
 
@@ -189,6 +360,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         }
 
     }
@@ -215,7 +387,10 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyGroundLinearDrag()
     {
+        
         rb.drag = MathF.Abs(horizontalDirection) < 0.4f || flipCharacter ? groundLinearDrag : 0f;
+        
+        // rb.drag = MathF.Abs(horizontalDirection) < 0.4f || flipCharacter ? airLinearDrag : groundLinearDrag;
     }
 
     public void ApplyAirLinearDrag()
@@ -231,7 +406,11 @@ public class PlayerController : MonoBehaviour
         onGround = Physics2D.Raycast(raycastCenter.transform.position * groundRaycastLength, Vector2.down,
             groundRaycastLength, groundLayer);
         if (onGround)
+        {
             coyoteCounter = coyoteTime;
+            disregard = null;
+        }
+
         else
             coyoteCounter -= Time.deltaTime;
     }
