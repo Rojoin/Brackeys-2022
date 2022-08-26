@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1458e5d702b38b46b3488872a63cf85
+guid: 6b773507e2b903846a2a01a51441c260
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: unknown__2_-removebg-preview_0
+      name: Menu (1)_0
       rect:
         serializedVersion: 2
-        x: 26
-        y: 276
-        width: 342
-        height: 94
+        x: 14
+        y: 162
+        width: 120
+        height: 79
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ff4fc5883278604690bbd88041e53bd
-      internalID: 311929421
+      spriteID: 9703e82ba609b1a478483555e3a4b13e
+      internalID: 193301130
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown__2_-removebg-preview_1
+      name: Menu (1)_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 180
-        width: 342
-        height: 93
+        x: 59
+        y: 124
+        width: 17
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1acf01e983ecec4d9d33fb3c2381eea
-      internalID: 230192950
+      spriteID: beeb3ce1897657842bbf849e6d0dc883
+      internalID: -314639053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown__2_-removebg-preview_2
+      name: Menu (1)_2
       rect:
         serializedVersion: 2
-        x: 26
-        y: 84
-        width: 341
-        height: 93
+        x: 20
+        y: 124
+        width: 23
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,20 +172,125 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aaf7db68415fa024496f2ec65d25a529
-      internalID: -462789513
+      spriteID: ac23d100627db7743a4fa69e473d7719
+      internalID: 1375984063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown__2_-removebg-preview_3
+      name: Menu (1)_3
       rect:
         serializedVersion: 2
-        x: 40
-        y: 15
-        width: 51
-        height: 63
+        x: 134
+        y: 86
+        width: 114
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a466f12ce358f3a4fb97e3e6a40496d6
+      internalID: 780335133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu (1)_4
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 54
+        width: 114
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51374f0b3a07ddd47bdca7f4d77e3d2b
+      internalID: 105945316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu (1)_5
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 22
+        width: 114
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de97c20ce1bfe12408ca3ea4c7361bec
+      internalID: 1680627027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu (1)_6
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 86
+        width: 114
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ab05a06adb9e0d4d9ac204a35f1b912
+      internalID: 1699138826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu (1)_7
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 54
+        width: 114
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00978d5100ac4c446a49ec163dfe0088
+      internalID: 2000757693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu (1)_8
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 22
+        width: 114
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,8 +298,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 144a6cbec91c575429726f8ef093cff0
-      internalID: -1949376180
+      spriteID: 10d4ad16a72225d4182ea311d3855cc1
+      internalID: 428937023
       vertices: []
       indices: 
       edges: []
@@ -202,7 +307,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 11aa8a79c7949974abd4d01a6e2ac57b
+    spriteID: e2af75025f10ebc4aac170fd3fa3b32d
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +315,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      unknown__2_-removebg-preview_1: 230192950
-      unknown__2_-removebg-preview_0: -1284447299
-      unknown__2_-removebg-preview_3: -233487991
-      unknown__2_-removebg-preview_2: -651173343
+      Menu (1)_2: 1375984063
+      Menu (1)_6: 1699138826
+      Menu (1)_1: -314639053
+      Menu (1)_0: 193301130
+      Menu (1)_7: 2000757693
+      Menu (1)_5: 1680627027
+      Menu (1)_3: 780335133
+      Menu (1)_8: 428937023
+      Menu (1)_4: 105945316
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
