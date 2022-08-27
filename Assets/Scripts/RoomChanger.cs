@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class RoomChanger : MonoBehaviour
@@ -13,6 +14,8 @@ public class RoomChanger : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(true);
+            virtualCam.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = other.transform;
+
             if (checkPoint != null)
             {
                 checkPoint.gameObject.transform.position = new Vector3(checkPoint.transform.position.x,

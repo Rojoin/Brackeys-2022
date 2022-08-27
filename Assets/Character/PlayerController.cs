@@ -142,9 +142,7 @@ public class PlayerController : MonoBehaviour
             if (jumpBufferCounter > 0f && coyoteCounter > 0f)
             {
                 Jump();
-                onGround = false;
-                jumpBufferCounter = 0f;
-                jump = true;
+                
             }
 
             if (context.canceled && rb.velocity.y > 0f)
@@ -420,7 +418,9 @@ public class PlayerController : MonoBehaviour
             CreateDust();
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
+            onGround = false;
+            jumpBufferCounter = 0f;
+            jump = true;
         }
 
     }
@@ -470,17 +470,18 @@ public class PlayerController : MonoBehaviour
         float duration = 0.2f; // 3 seconds you can change this 
         //to whatever you want
         float normalizedTime = 0;
+     
         while (normalizedTime <= 1f)
         {
-            if (horizontalDirection > 0)
-            {
-                rb.AddRelativeForce(new Vector2(1, 0) * (pushForce));
-            }
-            else if (horizontalDirection < 0)
-            {
-                rb.AddRelativeForce(new Vector2(-1, 0) * (pushForce));
-            }
-
+           if (horizontalDirection > 0)
+           {
+               rb.AddRelativeForce(new Vector2(4, 0) * (pushForce));
+           }
+           else if (horizontalDirection < 0)
+           {
+               rb.AddRelativeForce(new Vector2(-4, 0) * (pushForce));
+           }
+           
             rb.drag = 0;
             // rb.gravityScale = 1;
             normalizedTime += Time.deltaTime / duration;
