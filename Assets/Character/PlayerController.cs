@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
     private bool coroutinesStart = false;
     private Vector2 slopeNormal;
     private float slopeAngle;
-    
+    [Header("Animator")]
     // Start is called before the first frame update
     private void Awake()
     {
@@ -189,6 +190,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void GetEscapeInput(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void GetCrouchInput(InputAction.CallbackContext context)
     {
         if (context.performed)
